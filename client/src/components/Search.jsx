@@ -4,7 +4,7 @@ class Search extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      term: ''
+      term: 'skuzbot'
     }
     this.onChange = this.onChange.bind(this);
     this.search = this.search.bind(this);

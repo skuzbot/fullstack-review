@@ -24,11 +24,11 @@ class App extends React.Component {
         query: term
       }
     }).then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });;
+    console.log('response in index.jsx: ', response);
+  })
+  .catch(function (error) {
+    console.log('error in index.jsx: ', error);
+  });
 
   }
 
