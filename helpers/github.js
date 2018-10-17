@@ -1,5 +1,7 @@
 const request = require('request');
 const config = require('../config.js');
+var axios = require('axios');
+var bodyParser = require('body-parser');
 
 
 let getReposByUsername = (query) => {
@@ -16,7 +18,23 @@ let getReposByUsername = (query) => {
     },
     q: query
   };
-
+  axios.get('https://api.github.com/search/users', {
+    params: {
+      method: 'get',
+      headers: {
+        'User-Agent': 'request',
+        'Authorization': `token ${config.TOKEN}`
+      },
+      q: query
+    }
+  })
+  .then(function (response) {
+    console.log('*==*==*==*==*==*==* response in github.js :', response.data);
+    // TODO send this data to db
+  })
+  .catch(function (error) {
+    console.log('*==*--*==*--==* error in github.js :', error);
+  });
 }
 
 module.exports.getReposByUsername = getReposByUsername;
