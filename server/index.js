@@ -1,8 +1,6 @@
 const express = require('express');
 let app = express();
 var bodyParser = require('body-parser');
-var axios = require('axios');
-let config = require('../config.js');
 const getReposByUsername = require('../helpers/github.js').getReposByUsername;
 
 
@@ -15,22 +13,13 @@ app.post('/repos', function (req, res) {
   console.log('*==*==*==*==*==*==* post req.body', req.body.query); //works!! => post req.body { query: 'asdf' }
 
   // get the repo information from the github API
-  console.log('getReposFunction in server: ',getReposByUsername(req.body.query));
-  getReposByUsername(req.body.query);
-  // axios({
-  //   url: 'https://api.github.com/search/users',
-  //   method: 'get',
-  //   q: req.body.query,
-  //   'Authorization': `token ${config.TOKEN}`
-  // }).then((res) => {
-  //   console.log('github response is: ', res.body);
-
-  // }).catch((err) => {
-  //   console.log('err from github: ', err)
-  // })
-
-  // save the repo information in the database
-
+  //console.log('getReposFunction in server: ',getReposByUsername(req.body.query));
+  //getReposByUsername(req.body.query, (res) => {console.log('*==*==* res.body in server', res)}); // ! works!!!!
+  getReposByUsername(req.body.query, (res) => {
+    // ? send to db here?
+    
+  });
+  
 });
 
 app.get('/repos', function (req, res) {
