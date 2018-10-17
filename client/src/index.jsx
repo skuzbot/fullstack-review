@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import $ from 'jquery';
+import axios from 'axios';
 import Search from './components/Search.jsx';
 import RepoList from './components/RepoList.jsx';
+//import $ from 'jquery';
 
 class App extends React.Component {
   constructor(props) {
@@ -10,12 +11,24 @@ class App extends React.Component {
     this.state = { 
       repos: []
     }
-
+    this.search = this.search.bind(this);
   }
 
   search (term) {
     console.log(`${term} was searched`);
-    // TODO
+    // TODO send get and post to server // probably using $axios
+    axios({
+      method: 'post',
+      url: '/repos',
+      data: {
+        query: term
+      }
+    });
+
+  }
+
+  componentDidMount() {
+    // TODO receive data and push to repos array in state
   }
 
   render () {
