@@ -25,7 +25,7 @@ let repoSchema = new mongoose.Schema({ // ? added new keyword per mongoose docs
 
 let Repo = mongoose.model('Repo', repoSchema);
 
-let save = (data) => {
+const save = (data) => {
 
   data.forEach(repo => {
     repo = new Repo({
@@ -53,4 +53,18 @@ let save = (data) => {
   })
 }
 
+const getRepos = (callback) => {
+  Repo.find()
+  .sort({stars: -1})
+  .limit(25)
+  .exec((err, repos) => {
+    if (err) {
+      console.log('error getting repos', err)
+    } else {
+      callback(null, repos);
+    }
+  })
+}
+
 module.exports.save = save;
+module.exports.getRepos = getRepos;

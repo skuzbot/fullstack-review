@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 const getReposByUsername = require('../helpers/github.js').getReposByUsername;
 const mongoose = require('mongoose');
 const save = require('../database/index.js').save;
+const getRepos = require('../database/index.js').getRepos;
 
 
 
@@ -15,12 +16,21 @@ app.post('/repos', function (req, res) {
   getReposByUsername(req.body.query, (res) => {
     save(res);
   });
+  res.end('post successful');
   
 });
 
 app.get('/repos', function (req, res) {
-  // TODO - your code here!
-  // This route should send back the top 25 repos
+  getRepos((err, repos) => {
+    if (err) {
+      console.log('err getting repo res', err);
+    } else {
+      //console.log('GET res repos in server is', repos); // ! works!! got 25 sorted by stars
+      repoArray = JSON.stringify(repos);
+      //console.log('repoArray in server is: ', repoArray);
+      res.send(repoArray);
+    }
+  })
 });
 
 let port = 1128;

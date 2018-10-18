@@ -23,22 +23,29 @@ class App extends React.Component {
       data: {
         query: term
       }
-    }).then(function (response) {
-    console.log('response in index.jsx: ', response);
-  })
-  .catch(function (error) {
-    console.log('error in index.jsx: ', error);
-  });
-
+    })
+    .then(function (response) {
+      console.log('response in index.jsx: ', response);
+    })
+    .catch(function (error) {
+      console.log('error in index.jsx: ', error);
+    });
   }
 
   componentDidMount() {
-    // TODO receive data and push to repos array in state
     axios({
       method: 'get',
       url: '/repos',
-    }).then((res) => {
-      console.log('res is get is: ', res);
+    })
+    .then((res) => {
+      console.log('GET res in client is: ', res.data); // ! yes!!!
+      //TODO use data
+      this.setState({
+        repos: res.data
+      });
+    })
+    .catch((err) => {
+      console.log('error getting repos in client: ', err)
     })
   }
 
