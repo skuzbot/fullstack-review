@@ -2,6 +2,8 @@ const express = require('express');
 let app = express();
 var bodyParser = require('body-parser');
 const getReposByUsername = require('../helpers/github.js').getReposByUsername;
+const mongoose = require('mongoose');
+const save = require('../database/index.js').save;
 
 
 
@@ -9,15 +11,9 @@ app.use(bodyParser.json())
 app.use(express.static(__dirname + '/../client/dist'));
 
 app.post('/repos', function (req, res) {
-  // take github username 
   console.log('*==*==*==*==*==*==* post req.body', req.body.query); //works!! => post req.body { query: 'asdf' }
-
-  // get the repo information from the github API
-  //console.log('getReposFunction in server: ',getReposByUsername(req.body.query));
-  //getReposByUsername(req.body.query, (res) => {console.log('*==*==* res.body in server', res)}); // ! works!!!!
   getReposByUsername(req.body.query, (res) => {
-    // ? send to db here?
-    
+    save(res);
   });
   
 });

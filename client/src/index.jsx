@@ -34,6 +34,12 @@ class App extends React.Component {
 
   componentDidMount() {
     // TODO receive data and push to repos array in state
+    axios({
+      method: 'get',
+      url: '/repos',
+    }).then((res) => {
+      console.log('res is get is: ', res);
+    })
   }
 
   render () {
